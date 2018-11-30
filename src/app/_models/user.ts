@@ -2,8 +2,9 @@ import {Roles} from '../_enums/roles.enum';
 
 export class User {
   constructor(
-    public id: number = null,
+    public id: string = null,
     public name: string = null,
-    public role: Roles = null
+    public role: Roles = null,
+    public score: number = null
   ) {}
 }
