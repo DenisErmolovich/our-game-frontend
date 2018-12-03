@@ -4,6 +4,7 @@ export class GameSettings {
     public topicsInRound: number = null,
     public questionsInTopic: number = null,
     public superQuestions: number = null,
-    public minPrice: number = null
+    public minPrice: number = null,
+    public rounds: number = null
   ) {}
 }

@@ -750,6 +750,7 @@
     "topicsInRound": 6,
     "questionsInTopic": 5,
     "superQuestions": 7,
-    "minPrice": 100
+    "minPrice": 100,
+    "rounds": 3
   }
 }

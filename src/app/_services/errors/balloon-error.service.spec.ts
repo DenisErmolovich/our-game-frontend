@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { InitializingService } from './initializing.service';
+import { BalloonErrorService } from './balloon-error.service';
 
-describe('InitializingService', () => {
+describe('BalloonErrorService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: InitializingService = TestBed.get(InitializingService);
+    const service: BalloonErrorService = TestBed.get(BalloonErrorService);
     expect(service).toBeTruthy();
   });
 });

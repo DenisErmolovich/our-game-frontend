@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {InitializingService} from '../../_services/data/local-storage/initializing.service';
+import {GameService} from '../../_services/data/local-storage/game.service';
 
 @Component({
   selector: 'app-home',
@@ -9,13 +9,13 @@ import {InitializingService} from '../../_services/data/local-storage/initializi
 export class HomeComponent implements OnInit {
 
   constructor(
-    private initService: InitializingService
+    private gameService: GameService
   ) { }
 
-  ngOnInit() {
-    this.initService.initAppData().subscribe(
-      resp => console.log(resp)
-    );
+  ngOnInit() { }
+
+  public newGame(): void {
+    this.gameService.initGameFromJson();
   }
 
 }

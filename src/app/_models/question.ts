@@ -7,6 +7,7 @@ export class Question {
     public topic: string = null,
     public text: string = null,
     public image: string = null,
-    public answer: string = null
+    public answer: string = null,
+    public isAnswered: boolean = null
   ) {}
 }
