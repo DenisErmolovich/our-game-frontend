@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import {HomeModule} from './home/home.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ErrorModule} from './error/error.module';
+import {GameModule} from './game/game.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {ErrorModule} from './error/error.module';
     AppRoutingModule,
     HttpClientModule,
     HomeModule,
-    ErrorModule
+    ErrorModule,
+    GameModule
   ],
   providers: [],
   bootstrap: [AppComponent]

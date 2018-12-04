@@ -1,0 +1,13 @@
+@import "~src/assets/styles/common/collors";
+
+.game-header {
+  position: sticky;
+  top: 0;
+  z-index: 1500;
+  max-height: 56px;
+}
+
+.game-content {
+  min-height: calc(100vh - 56px);
+  background-color: $color-main;
+}

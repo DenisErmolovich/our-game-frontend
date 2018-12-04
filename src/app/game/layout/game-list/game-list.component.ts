@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {GameService} from '../../_services/data/local-storage/game.service';
-import {Game} from '../../_models/game';
+import {GameService} from '../../../_services/data/local-storage/game.service';
+import {Game} from '../../../_models/game';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-game-list',
@@ -11,11 +12,16 @@ export class GameListComponent implements OnInit {
   public games: Array<Game>;
 
   constructor(
-    private gameService: GameService
+    private gameService: GameService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.games = this.gameService.getAll();
+  }
+
+  public continueGame(gameId: string) {
+    this.router.navigate(['game', gameId]);
   }
 
 }

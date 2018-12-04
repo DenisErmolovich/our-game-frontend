@@ -1,3 +1,10 @@
+@import "~src/assets/styles/common/collors";
+
+.base-row {
+  min-height: 100vh;
+  background-color: $color-main;
+}
+
 .btn {
   margin-right: 10px;
   &:last-of-type {

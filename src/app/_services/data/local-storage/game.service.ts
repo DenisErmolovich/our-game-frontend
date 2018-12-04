@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {BalloonErrorService} from '../../errors/balloon-error.service';
 import {ErrorBase} from '../../../_models/error-base';
 import {GameServiceInterface} from '../game-service-interface';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class GameService implements GameServiceInterface {
 
   constructor(
     private http: HttpClient,
-    private errorService: BalloonErrorService
+    private errorService: BalloonErrorService,
+    private router: Router
   ) { }
 
   public create(game: Game) {
@@ -54,6 +56,7 @@ export class GameService implements GameServiceInterface {
         game = resp;
         if (this.isGameValid(game)) {
           this.create(game);
+          this.router.navigate(['game', game.id]);
         }
       },
       () => this.sendError('Ошибка при загрузке файла конфигураций!')
