@@ -6,8 +6,10 @@ export class Question {
     public type: QuestionTypes = null,
     public topic: string = null,
     public text: string = null,
-    public image: string = null,
     public answer: string = null,
+    public image: Array<string> = new Array<string>(),
+    public sound: string = null,
+    public answerImage: string = null,
     public isAnswered: boolean = null
   ) {}
 }
