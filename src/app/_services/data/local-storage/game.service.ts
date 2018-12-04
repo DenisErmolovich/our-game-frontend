@@ -42,7 +42,8 @@ export class GameService implements GameServiceInterface {
   }
 
   public getById(id: string): Game {
-    return undefined;
+    const games = this.getAll();
+    return games.find(game => game.id === id);
   }
 
   public update(game: Game) {

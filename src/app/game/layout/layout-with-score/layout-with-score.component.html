@@ -1,0 +1,12 @@
+<app-layout>
+  <div class="row">
+    <div class="col-10">
+      <ng-content></ng-content>
+    </div>
+    <div class="col-2 game-score">
+      <div *ngFor="let player of players">
+        {{player.name}}: {{player.score}}
+      </div>
+    </div>
+  </div>
+</app-layout>
