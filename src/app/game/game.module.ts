@@ -5,13 +5,15 @@ import {GameListComponent} from './layout/game-list/game-list.component';
 import { LayoutComponent } from './layout/layout.component';
 import {RouterModule} from '@angular/router';
 import { LayoutWithScoreComponent } from './layout/layout-with-score/layout-with-score.component';
+import { RoundComponent } from './layout/layout-with-score/round/round.component';
 
 @NgModule({
   declarations: [
     GameComponent,
     GameListComponent,
     LayoutComponent,
-    LayoutWithScoreComponent
+    LayoutWithScoreComponent,
+    RoundComponent
   ],
   imports: [
     CommonModule,

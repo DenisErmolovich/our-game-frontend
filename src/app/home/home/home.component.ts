@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   public toGameList(): void {
-    this.router.navigate(['games']);
+    this.router.navigate(['game']);
   }
 
 }

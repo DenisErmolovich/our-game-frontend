@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {GameService} from '../../../../_services/data/local-storage/game.service';
 import {Game} from '../../../../_models/game';
 
@@ -12,13 +12,18 @@ export class GameComponent implements OnInit {
   public game: Game;
 
   constructor(
-    private router: ActivatedRoute,
+    private activateRouter: ActivatedRoute,
+    private router: Router,
     private gameService: GameService
   ) { }
 
   ngOnInit() {
-   const gameId = this.router.snapshot.paramMap.get('gameId');
-   this.gameService.getById(gameId);
+   const gameId = this.activateRouter.snapshot.paramMap.get('gameId');
+   this.game = this.gameService.getById(gameId);
+  }
+
+  public toRound(gameId: string, roundId: string): void {
+    this.router.navigate(['game', gameId, 'round', roundId]);
   }
 
 }
