@@ -55,8 +55,7 @@ export class GameService implements GameServiceInterface {
     this.http.get<Game>('assets/temp/initGame.json').subscribe(
       resp => {
         game = resp;
-        if (this.isGameValid(game)) {
-          this.create(game);
+        if (this.isGameValid(game) && this.create(game)) {
           this.router.navigate(['game', game.id]);
         }
       },

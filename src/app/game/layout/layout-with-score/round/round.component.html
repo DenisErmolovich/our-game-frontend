@@ -1,5 +1,15 @@
 <app-layout-with-score>
-  <div>
-    Round
+  <div *ngFor="let topic of round.topics"
+       [ngStyle]="{'height.%': 100 / round.topics.length}"
+       class="row align-items-center">
+    <div [ngStyle]="{'width.%': 100 / (topic.questions.length + 1)}"
+         class="col h-100 d-flex align-items-center">
+      {{topic.name}}
+    </div>
+    <div *ngFor="let question of topic.questions"
+         [ngStyle]="{'width.%': 100 / (topic.questions.length + 1)}"
+         class="col h-100 d-flex align-items-center justify-content-center question">
+      {{getQuestionValue(question.id)}}
+    </div>
   </div>
 </app-layout-with-score>

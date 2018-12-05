@@ -1,0 +1,19 @@
+@import "~src/assets/styles/common/collors";
+
+.row {
+  border-bottom: 1px solid $color-white;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+
+.col {
+  border-right: 1px solid $color-white;
+}
+
+.question {
+  cursor: pointer;
+  &:hover {
+    color: $color-secondary;
+  }
+}

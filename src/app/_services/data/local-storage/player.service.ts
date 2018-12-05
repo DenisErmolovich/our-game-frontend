@@ -12,7 +12,7 @@ export class PlayerService implements PlayerServiceInterface {
     private gameService: GameService
   ) { }
 
-  getPlayersByGameId(gameId: string): Array<User> {
+  public getPlayersByGameId(gameId: string): Array<User> {
     return this.gameService.getById(gameId).players;
   }
 }
