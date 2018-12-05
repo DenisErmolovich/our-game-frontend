@@ -26,4 +26,8 @@ export class GameComponent implements OnInit {
     this.router.navigate(['game', gameId, 'round', roundId]);
   }
 
+  public toSuperRound(gameId: string): void {
+    this.router.navigate(['game', gameId, 'round', 'super']);
+  }
+
 }

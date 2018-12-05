@@ -1,0 +1,9 @@
+<app-layout-with-score>
+  <div *ngFor="let question of superRound.questions"
+       [ngStyle]="{'height.%': 100 / superRound.questions.length}"
+       class="row">
+    <div class="col h-100 d-flex align-items-center justify-content-center question">
+      {{question.topic}}
+    </div>
+  </div>
+</app-layout-with-score>
