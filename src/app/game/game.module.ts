@@ -7,6 +7,7 @@ import {RouterModule} from '@angular/router';
 import { LayoutWithScoreComponent } from './layout/layout-with-score/layout-with-score.component';
 import { RoundComponent } from './layout/layout-with-score/round/round.component';
 import { SuperRoundComponent } from './layout/layout-with-score/super-round/super-round.component';
+import { QuestionComponent } from './layout/layout-with-score/question/question.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SuperRoundComponent } from './layout/layout-with-score/super-round/supe
     LayoutComponent,
     LayoutWithScoreComponent,
     RoundComponent,
-    SuperRoundComponent
+    SuperRoundComponent,
+    QuestionComponent
   ],
   imports: [
     CommonModule,

@@ -8,7 +8,9 @@
     </div>
     <div *ngFor="let question of topic.questions"
          [ngStyle]="{'width.%': 100 / (topic.questions.length + 1)}"
-         class="col h-100 d-flex align-items-center justify-content-center question">
+         class="col h-100 d-flex align-items-center justify-content-center question"
+         (click)="goToQuestion(gameId, roundId, question.id)"
+    >
       {{getQuestionValue(question.id)}}
     </div>
   </div>

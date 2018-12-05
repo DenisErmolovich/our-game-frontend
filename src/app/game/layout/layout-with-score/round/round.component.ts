@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Round} from '../../../../_models/round';
 import {RoundService} from '../../../../_services/data/local-storage/round.service';
 import {QuestionService} from '../../../../_services/data/local-storage/question.service';
@@ -17,7 +17,8 @@ export class RoundComponent implements OnInit {
   constructor(
     private activateRout: ActivatedRoute,
     private roundService: RoundService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,6 +30,10 @@ export class RoundComponent implements OnInit {
 
   public getQuestionValue(questionId: string): number {
     return this.questionService.countQuestionValue(this.gameId, this.roundId, questionId);
+  }
+
+  public goToQuestion(gameId: string, roundId: string, questionId: string): void {
+    this.router.navigate(['game', gameId, 'round', roundId, 'question', questionId]);
   }
 
 }

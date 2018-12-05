@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {RoundService} from '../../../../_services/data/local-storage/round.service';
 import {SuperRound} from '../../../../_models/super-round';
 
@@ -14,12 +14,17 @@ export class SuperRoundComponent implements OnInit {
 
   constructor(
     private activateRout: ActivatedRoute,
-    private roundService: RoundService
+    private roundService: RoundService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.gameId = this.activateRout.snapshot.paramMap.get('gameId');
     this.superRound = this.roundService.getSuperRound(this.gameId);
+  }
+
+  public goToQuestion(gameId: string, questionId: string): void {
+    this.router.navigate(['game', gameId, 'round', 'super', 'question', questionId]);
   }
 
 }

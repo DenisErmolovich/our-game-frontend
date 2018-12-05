@@ -13,7 +13,19 @@ export class QuestionService implements QuestionServiceInterface {
   ) { }
 
   public getQuestion(gameId: string, roundId: string, questionId: string): Question {
-    return undefined;
+    const game = this.gameService.getById(gameId);
+    if (roundId === 'super') {
+      return game.superRound.questions.find(question => question.id === questionId);
+    } else {
+      const round = game.rounds.find(item => item.id === roundId);
+      for (const topic of round.topics) {
+        const question = topic.questions.find(item => item.id === questionId);
+        if (question) {
+          return question;
+        }
+      }
+      return undefined;
+    }
   }
 
   public countQuestionValue(gameId: string, roundId: string, questionId: string): number {
