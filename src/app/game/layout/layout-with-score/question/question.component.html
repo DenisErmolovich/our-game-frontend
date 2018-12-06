@@ -1,5 +1,86 @@
 <app-layout-with-score>
-  <p>
-    {{question.text}}
-  </p>
+  <div class="row h-100 align-items-center">
+    <div *ngIf="state === 'TYPE'"
+         class="col h-100 d-flex justify-content-center align-items-center full-click"
+         (click)="showTopic()"
+    >
+      <p *ngIf="question.type === 'AUCTION'">
+        Аукцион
+      </p>
+      <p *ngIf="question.type === 'CAT'">
+        Кот в мешке
+      </p>
+    </div>
+    <div *ngIf="state === 'TOPIC'"
+         class="col h-100 d-flex justify-content-center align-items-center full-click"
+         (click)="showQuestion()"
+    >
+      <p>
+        {{question.topic}}
+      </p>
+    </div>
+    <div *ngIf="state === 'QUESTION'"
+         class="col text-center"
+    >
+      <p>
+        {{question.text}}
+      </p>
+      <div *ngIf="question.image?.length > 0"
+           class="row">
+        <div *ngFor="let img of question.image"
+             class="col d-flex justify-content-center align-items-center">
+          <img src="/assets/images/{{img}}"
+               alt="Не правильно указана фотография =(">
+        </div>
+      </div>
+      <div *ngIf="question.sound">
+        <audio src="/assets/sounds/{{question.sound}}"
+               controls></audio>
+      </div>
+      <div class="row">
+        <div *ngFor="let player of players"
+             class="col">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{player.name}}
+            </h5>
+            <div class="btn-group">
+              <button
+                type="button"
+                class="btn btn-success"
+              >
+                Ответил
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger"
+              >
+                Ошибся
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="showAnswer()"
+        >
+          Показать ответ
+        </button>
+      </div>
+    </div>
+    <div *ngIf="state === 'ANSWER'"
+         class="col text-center"
+    >
+      <p>
+        {{question.answer}}
+      </p>
+      <div *ngIf="question.answerImage">
+        <img src="/assets/images/{{question.answerImage}}"
+             alt="Не правильно указана фотография =(">
+      </div>
+    </div>
+  </div>
 </app-layout-with-score>
