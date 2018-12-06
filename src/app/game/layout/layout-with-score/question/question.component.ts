@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {QuestionService} from '../../../../_services/data/local-storage/question.service';
 import {Question} from '../../../../_models/question';
 import {QuestionState} from '../../../../_enums/question-state.enum';
@@ -19,17 +19,20 @@ export class QuestionComponent implements OnInit {
   public question: Question;
   public state = QuestionState.QUESTION;
   public players: Array<User>;
+  public answeredUsersMap = new Map<string, boolean>();
 
   constructor(
     private activateRout: ActivatedRoute,
     private questionService: QuestionService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.initParams();
     this.question = this.questionService.getQuestion(this.gameId, this.roundId, this.questionId);
     this.players = this.playerService.getPlayersByGameId(this.gameId);
+    this.fillMap();
     this.checkState();
   }
 
@@ -46,7 +49,18 @@ export class QuestionComponent implements OnInit {
   }
 
   public showAnswer(): void {
+    this.question.isAnswered = true;
+    this.questionService.updateQuestion(this.gameId, this.roundId, this.question);
     this.state = QuestionState.ANSWER;
+  }
+
+  public updateScore(userId: string, isRight: boolean): void {
+    this.answeredUsersMap.set(userId, true);
+    this.playerService.updateScore(this.gameId, this.roundId, this.questionId, userId, isRight);
+  }
+
+  public goToQuestions(): void {
+    this.router.navigate(['game', this.gameId, 'round', this.roundId]);
   }
 
   private initParams(): void {
@@ -54,6 +68,12 @@ export class QuestionComponent implements OnInit {
     this.gameId = paramMap.get('gameId');
     this.roundId = paramMap.get('roundId');
     this.questionId = paramMap.get('questionId');
+  }
+
+  private fillMap(): void {
+    for (const player of this.players) {
+      this.answeredUsersMap.set(player.id, false);
+    }
   }
 
   private checkState(): void {

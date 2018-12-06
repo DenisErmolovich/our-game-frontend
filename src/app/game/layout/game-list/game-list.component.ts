@@ -24,4 +24,9 @@ export class GameListComponent implements OnInit {
     this.router.navigate(['game', gameId]);
   }
 
+  public deleteGame(gameId: string): void {
+    this.gameService.delete(gameId);
+    this.games = this.gameService.getAll();
+  }
+
 }

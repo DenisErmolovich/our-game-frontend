@@ -29,7 +29,11 @@ export class GameService implements GameServiceInterface {
     }
   }
 
-  public delete(id: string) {
+  public delete(id: string): void {
+    const games = this.getAll();
+    const gameIndex = games.findIndex(item => item.id === id);
+    games.splice(gameIndex, 1);
+    localStorage.setItem('games', JSON.stringify(games));
   }
 
   public getAll(): Array<Game> {

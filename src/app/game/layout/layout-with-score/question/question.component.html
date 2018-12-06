@@ -48,12 +48,16 @@
               <button
                 type="button"
                 class="btn btn-success"
+                [disabled]="answeredUsersMap.get(player.id)"
+                (click)="updateScore(player.id, true)"
               >
                 Ответил
               </button>
               <button
                 type="button"
                 class="btn btn-danger"
+                [disabled]="answeredUsersMap.get(player.id)"
+                (click)="updateScore(player.id, false)"
               >
                 Ошибся
               </button>
@@ -80,6 +84,15 @@
       <div *ngIf="question.answerImage">
         <img src="/assets/images/{{question.answerImage}}"
              alt="Не правильно указана фотография =(">
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="goToQuestions()"
+        >
+          К вопросам
+        </button>
       </div>
     </div>
   </div>

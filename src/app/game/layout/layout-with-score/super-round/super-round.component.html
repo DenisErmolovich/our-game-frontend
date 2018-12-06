@@ -5,7 +5,9 @@
        (click)="goToQuestion(gameId, question.id)"
   >
     <div class="col h-100 d-flex align-items-center justify-content-center question">
-      {{question.topic}}
+      <div *ngIf="!question.isAnswered">
+        {{question.topic}}
+      </div>
     </div>
   </div>
 </app-layout-with-score>

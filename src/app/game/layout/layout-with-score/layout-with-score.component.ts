@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PlayerService} from '../../../_services/data/local-storage/player.service';
 import {User} from '../../../_models/user';
+import {ScoreUpdateService} from '../../../_services/component-communication/score-update.service';
 
 @Component({
   selector: 'app-layout-with-score',
@@ -14,12 +15,16 @@ export class LayoutWithScoreComponent implements OnInit {
 
   constructor(
     private router: ActivatedRoute,
-    private playerService: PlayerService
+    private playerService: PlayerService,
+    private scoreUpdateService: ScoreUpdateService
   ) { }
 
   ngOnInit() {
     this.gameId = this.router.snapshot.paramMap.get('gameId');
     this.getPlayers(this.gameId);
+    this.scoreUpdateService.dataTransferEvent$.subscribe(
+      () => this.getPlayers(this.gameId)
+    );
   }
 
   private getPlayers(gameId: string): void {

@@ -46,4 +46,25 @@ export class QuestionService implements QuestionServiceInterface {
     }
     return null;
   }
+
+  public updateQuestion(gameId: string, roundId: string, question: Question): void {
+    const games = this.gameService.getAll();
+    const game = games.find(item => item.id === gameId);
+    if (roundId === 'super') {
+      const superRound = game.superRound;
+      const questionIndex = superRound.questions.findIndex(item => item.id === question.id);
+      superRound.questions[questionIndex] = question;
+    } else {
+      const round = game.rounds.find(item => item.id === roundId);
+      let topicIndex: number;
+      for (let i = 0; i < round.topics.length; i++) {
+        if (round.topics[i].questions.find(item => item.id === question.id)) {
+          topicIndex = i;
+        }
+      }
+      const questionIndex = round.topics[topicIndex].questions.findIndex(item => item.id === question.id);
+      round.topics[topicIndex].questions[questionIndex] = question;
+    }
+    localStorage.setItem('games', JSON.stringify(games));
+  }
 }

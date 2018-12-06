@@ -23,13 +23,22 @@
         </div>
       </div>
       <div class="col-3 d-flex align-items-center">
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="continueGame(game.id)"
-        >
-          Продолжить игру
-        </button>
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="continueGame(game.id)"
+          >
+            Продолжить игру
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteGame(game.id)"
+          >
+            Удалить
+          </button>
+        </div>
       </div>
     </div>
   </div>
