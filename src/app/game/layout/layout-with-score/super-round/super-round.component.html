@@ -1,0 +1,13 @@
+<app-layout-with-score>
+  <div *ngFor="let question of superRound.questions"
+       [ngStyle]="{'height.%': 100 / superRound.questions.length}"
+       class="row"
+       (click)="goToQuestion(gameId, question.id)"
+  >
+    <div class="col h-100 d-flex align-items-center justify-content-center question">
+      <div *ngIf="!question.isAnswered">
+        {{question.topic}}
+      </div>
+    </div>
+  </div>
+</app-layout-with-score>

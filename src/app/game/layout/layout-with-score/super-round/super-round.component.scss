@@ -1,0 +1,9 @@
+@import "~src/assets/styles/common/collors";
+
+.row {
+  border-bottom: 1px solid $color-white;
+  border-right: 1px solid $color-white;
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
