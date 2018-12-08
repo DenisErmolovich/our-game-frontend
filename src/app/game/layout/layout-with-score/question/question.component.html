@@ -4,12 +4,20 @@
          class="col h-100 d-flex justify-content-center align-items-center full-click"
          (click)="showTopic()"
     >
-      <h1 *ngIf="question.type === 'AUCTION'">
-        Аукцион
-      </h1>
-      <h1 *ngIf="question.type === 'CAT'">
-        Кот в мешке
-      </h1>
+      <div *ngIf="question.type === 'AUCTION'">
+        <h1>
+          Аукцион
+        </h1>
+        <audio src="/assets/sounds/system/Auction.mp3"
+               autoplay></audio>
+      </div>
+      <div *ngIf="question.type === 'CAT'">
+        <h1>
+          Кот в мешке
+        </h1>
+        <audio src="/assets/sounds/system/Cat.mp3"
+               autoplay></audio>
+      </div>
     </div>
     <div *ngIf="state === 'TOPIC'"
          class="col h-100 d-flex justify-content-center align-items-center full-click"
@@ -35,6 +43,10 @@
       </div>
       <div *ngIf="question.sound">
         <audio src="/assets/sounds/{{question.sound}}"
+               controls></audio>
+      </div>
+      <div *ngIf="question.type === 'SUPER'">
+        <audio src="/assets/sounds/system/Super.mp3"
                controls></audio>
       </div>
       <div [formGroup]="formGroup"

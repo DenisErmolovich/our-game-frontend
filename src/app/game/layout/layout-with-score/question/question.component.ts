@@ -18,7 +18,7 @@ export class QuestionComponent implements OnInit {
   public roundId: string;
   public questionId: string;
   public question: Question;
-  public state = QuestionState.QUESTION;
+  public state: QuestionState;
   public players: Array<User>;
   public answeredUsersMap = new Map<string, boolean>();
   public formGroup = new FormGroup({});
@@ -43,12 +43,17 @@ export class QuestionComponent implements OnInit {
     if (this.question.topic) {
       this.state = QuestionState.TOPIC;
     } else {
-      this.state = QuestionState.QUESTION;
+      this.showQuestion();
     }
   }
 
   public showQuestion(): void {
     this.state = QuestionState.QUESTION;
+    if (this.question.type !== QuestionTypes.SUPER) {
+      const audio = new Audio();
+      audio.src = '/assets/sounds/system/NoAnswer.mp3';
+      setTimeout(() => audio.play(), 60 * 1000);
+    }
   }
 
   public showAnswer(): void {
@@ -96,9 +101,10 @@ export class QuestionComponent implements OnInit {
   private checkState(): void {
     if (this.question.type === QuestionTypes.AUCTION || this.question.type === QuestionTypes.CAT) {
       this.state = QuestionState.TYPE;
-    }
-    if (this.question.isAnswered) {
+    } else if (this.question.isAnswered) {
       this.state = QuestionState.ANSWER;
+    } else {
+      this.showQuestion();
     }
   }
 
