@@ -703,49 +703,49 @@
     "questions": [
       {
         "id": "4.1.1",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.1",
         "text": "Question 4.1.1",
         "answer": "Answer 4.1.1"
       },
       {
         "id": "4.2.2",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.2",
         "text": "Question 4.2.1",
         "answer": "Answer 4.2.1"
       },
       {
         "id": "4.3.3",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.3",
         "text": "Question 4.3.1",
         "answer": "Answer 4.3.1"
       },
       {
         "id": "4.4.4",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.4",
         "text": "Question 4.4.1",
         "answer": "Answer 4.4.1"
       },
       {
         "id": "4.5.5",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.5",
         "text": "Question 4.5.1",
         "answer": "Answer 4.5.1"
       },
       {
         "id": "4.6.6",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.6",
         "text": "Question 4.6.1",
         "answer": "Answer 4.6.1"
       },
       {
         "id": "4.7.7",
-        "type": "REGULAR",
+        "type": "SUPER",
         "topic": "Topic 4.7",
         "text": "Question 4.7.1",
         "answer": "Answer 4.7.1"

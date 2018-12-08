@@ -6,6 +6,7 @@ import {QuestionState} from '../../../../_enums/question-state.enum';
 import {QuestionTypes} from '../../../../_enums/question-types.enum';
 import {PlayerService} from '../../../../_services/data/local-storage/player.service';
 import {User} from '../../../../_models/user';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -17,9 +18,10 @@ export class QuestionComponent implements OnInit {
   public roundId: string;
   public questionId: string;
   public question: Question;
-  public state = QuestionState.QUESTION;
+  public state: QuestionState;
   public players: Array<User>;
   public answeredUsersMap = new Map<string, boolean>();
+  public formGroup = new FormGroup({});
 
   constructor(
     private activateRout: ActivatedRoute,
@@ -33,6 +35,7 @@ export class QuestionComponent implements OnInit {
     this.question = this.questionService.getQuestion(this.gameId, this.roundId, this.questionId);
     this.players = this.playerService.getPlayersByGameId(this.gameId);
     this.fillMap();
+    this.initFormArray();
     this.checkState();
   }
 
@@ -40,12 +43,17 @@ export class QuestionComponent implements OnInit {
     if (this.question.topic) {
       this.state = QuestionState.TOPIC;
     } else {
-      this.state = QuestionState.QUESTION;
+      this.showQuestion();
     }
   }
 
   public showQuestion(): void {
     this.state = QuestionState.QUESTION;
+    if (this.question.type !== QuestionTypes.SUPER) {
+      const audio = new Audio();
+      audio.src = '/assets/sounds/system/NoAnswer.mp3';
+      setTimeout(() => audio.play(), 60 * 1000);
+    }
   }
 
   public showAnswer(): void {
@@ -55,8 +63,16 @@ export class QuestionComponent implements OnInit {
   }
 
   public updateScore(userId: string, isRight: boolean): void {
+    let price = this.questionService.countQuestionValue(this.gameId, this.roundId, this.questionId);
+    const customPrice = +this.formGroup.controls[userId].value;
+    if (customPrice) {
+      price = customPrice;
+    }
+    if (!isRight) {
+      price = price * -1;
+    }
     this.answeredUsersMap.set(userId, true);
-    this.playerService.updateScore(this.gameId, this.roundId, this.questionId, userId, isRight);
+    this.playerService.updateScore(this.gameId, userId, price);
   }
 
   public goToQuestions(): void {
@@ -76,12 +92,19 @@ export class QuestionComponent implements OnInit {
     }
   }
 
+  private initFormArray(): void {
+    for (const player of this.players) {
+      this.formGroup.addControl(player.id, new FormControl());
+    }
+  }
+
   private checkState(): void {
     if (this.question.type === QuestionTypes.AUCTION || this.question.type === QuestionTypes.CAT) {
       this.state = QuestionState.TYPE;
-    }
-    if (this.question.isAnswered) {
+    } else if (this.question.isAnswered) {
       this.state = QuestionState.ANSWER;
+    } else {
+      this.showQuestion();
     }
   }
 

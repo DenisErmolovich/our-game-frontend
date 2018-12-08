@@ -8,6 +8,7 @@ import { LayoutWithScoreComponent } from './layout/layout-with-score/layout-with
 import { RoundComponent } from './layout/layout-with-score/round/round.component';
 import { SuperRoundComponent } from './layout/layout-with-score/super-round/super-round.component';
 import { QuestionComponent } from './layout/layout-with-score/question/question.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { QuestionComponent } from './layout/layout-with-score/question/question.
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveFormsModule
   ]
 })
 export class GameModule { }

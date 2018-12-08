@@ -4,7 +4,9 @@
        class="row align-items-center">
     <div [ngStyle]="{'width.%': 100 / (topic.questions.length + 1)}"
          class="col h-100 d-flex align-items-center">
-      {{topic.name}}
+      <h4>
+        {{topic.name}}
+      </h4>
     </div>
     <div *ngFor="let question of topic.questions"
          [ngStyle]="{'width.%': 100 / (topic.questions.length + 1)}"
@@ -12,7 +14,9 @@
          (click)="goToQuestion(gameId, roundId, question.id)"
     >
       <div *ngIf="!question.isAnswered">
-        {{getQuestionValue(question.id)}}
+        <h4>
+          {{getQuestionValue(question.id)}}
+        </h4>
       </div>
     </div>
   </div>

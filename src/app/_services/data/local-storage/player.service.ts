@@ -20,19 +20,14 @@ export class PlayerService implements PlayerServiceInterface {
     return this.gameService.getById(gameId).players;
   }
 
-  public updateScore(gameId: string, roundId: string, questionId: string, userId: string, isRight: boolean): void {
+  public updateScore(gameId: string, userId: string, price: number): void {
     const games = this.gameService.getAll();
     const game = games.find(item => item.id === gameId);
     const player = game.players.find(item => item.id === userId);
-    const price = this.questionService.countQuestionValue(gameId, roundId, questionId);
     if (!player.score) {
       player.score = 0;
     }
-    if (isRight) {
-      player.score = player.score + price;
-    } else {
-      player.score = player.score - price;
-    }
+    player.score = player.score + price;
     localStorage.setItem('games', JSON.stringify(games));
     this.scoreUpdateService.sendData();
   }

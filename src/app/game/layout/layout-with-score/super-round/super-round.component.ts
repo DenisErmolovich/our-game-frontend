@@ -11,6 +11,7 @@ import {SuperRound} from '../../../../_models/super-round';
 export class SuperRoundComponent implements OnInit {
   public gameId: string;
   public superRound: SuperRound;
+  public hideQuestionMap = new Map<string, boolean>();
 
   constructor(
     private activateRout: ActivatedRoute,
@@ -21,10 +22,27 @@ export class SuperRoundComponent implements OnInit {
   ngOnInit() {
     this.gameId = this.activateRout.snapshot.paramMap.get('gameId');
     this.superRound = this.roundService.getSuperRound(this.gameId);
+    this.initHideQuestionMap();
   }
 
   public goToQuestion(gameId: string, questionId: string): void {
+    let counter = 0;
+    for (const question of this.superRound.questions) {
+      if (!this.hideQuestionMap.get(question.id)) {
+        counter++;
+      }
+      if (counter > 1) {
+        this.hideQuestionMap.set(questionId, true);
+        return;
+      }
+    }
     this.router.navigate(['game', gameId, 'round', 'super', 'question', questionId]);
+  }
+
+  private initHideQuestionMap(): void {
+    for (const question of this.superRound.questions) {
+      this.hideQuestionMap.set(question.id, false);
+    }
   }
 
 }
