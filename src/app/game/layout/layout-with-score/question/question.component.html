@@ -4,27 +4,27 @@
          class="col h-100 d-flex justify-content-center align-items-center full-click"
          (click)="showTopic()"
     >
-      <p *ngIf="question.type === 'AUCTION'">
+      <h1 *ngIf="question.type === 'AUCTION'">
         Аукцион
-      </p>
-      <p *ngIf="question.type === 'CAT'">
+      </h1>
+      <h1 *ngIf="question.type === 'CAT'">
         Кот в мешке
-      </p>
+      </h1>
     </div>
     <div *ngIf="state === 'TOPIC'"
          class="col h-100 d-flex justify-content-center align-items-center full-click"
          (click)="showQuestion()"
     >
-      <p>
+      <h1>
         {{question.topic}}
-      </p>
+      </h1>
     </div>
     <div *ngIf="state === 'QUESTION'"
          class="col text-center"
     >
-      <p>
+      <h1>
         {{question.text}}
-      </p>
+      </h1>
       <div *ngIf="question.image?.length > 0"
            class="row">
         <div *ngFor="let img of question.image"
@@ -78,9 +78,9 @@
     <div *ngIf="state === 'ANSWER'"
          class="col text-center"
     >
-      <p>
+      <h1>
         {{question.answer}}
-      </p>
+      </h1>
       <div *ngIf="question.answerImage">
         <img src="/assets/images/{{question.answerImage}}"
              alt="Не правильно указана фотография =(">
@@ -88,7 +88,7 @@
       <div>
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-primary m-2"
           (click)="goToQuestions()"
         >
           К вопросам
