@@ -37,13 +37,19 @@
         <audio src="/assets/sounds/{{question.sound}}"
                controls></audio>
       </div>
-      <div *ngIf="roundId !== 'super'" class="row">
-        <div *ngFor="let player of players"
+      <div [formGroup]="formGroup"
+           class="row">
+        <div *ngFor="let player of players; index as i"
              class="col">
           <div class="card-body">
             <h5 class="card-title">
               {{player.name}}
             </h5>
+            <div *ngIf="question.type !== 'REGULAR'" class="form-group">
+              <input [formControlName]="player.id"
+                     class="form-control"
+                     placeholder="Ставка">
+            </div>
             <div class="btn-group">
               <button
                 type="button"

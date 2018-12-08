@@ -6,6 +6,7 @@ import {QuestionState} from '../../../../_enums/question-state.enum';
 import {QuestionTypes} from '../../../../_enums/question-types.enum';
 import {PlayerService} from '../../../../_services/data/local-storage/player.service';
 import {User} from '../../../../_models/user';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-question',
@@ -20,6 +21,7 @@ export class QuestionComponent implements OnInit {
   public state = QuestionState.QUESTION;
   public players: Array<User>;
   public answeredUsersMap = new Map<string, boolean>();
+  public formGroup = new FormGroup({});
 
   constructor(
     private activateRout: ActivatedRoute,
@@ -33,6 +35,7 @@ export class QuestionComponent implements OnInit {
     this.question = this.questionService.getQuestion(this.gameId, this.roundId, this.questionId);
     this.players = this.playerService.getPlayersByGameId(this.gameId);
     this.fillMap();
+    this.initFormArray();
     this.checkState();
   }
 
@@ -55,8 +58,16 @@ export class QuestionComponent implements OnInit {
   }
 
   public updateScore(userId: string, isRight: boolean): void {
+    let price = this.questionService.countQuestionValue(this.gameId, this.roundId, this.questionId);
+    const customPrice = +this.formGroup.controls[userId].value;
+    if (customPrice) {
+      price = customPrice;
+    }
+    if (!isRight) {
+      price = price * -1;
+    }
     this.answeredUsersMap.set(userId, true);
-    this.playerService.updateScore(this.gameId, this.roundId, this.questionId, userId, isRight);
+    this.playerService.updateScore(this.gameId, userId, price);
   }
 
   public goToQuestions(): void {
@@ -73,6 +84,12 @@ export class QuestionComponent implements OnInit {
   private fillMap(): void {
     for (const player of this.players) {
       this.answeredUsersMap.set(player.id, false);
+    }
+  }
+
+  private initFormArray(): void {
+    for (const player of this.players) {
+      this.formGroup.addControl(player.id, new FormControl());
     }
   }
 
