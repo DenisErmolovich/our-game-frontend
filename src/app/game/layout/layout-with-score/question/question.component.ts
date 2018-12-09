@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {QuestionService} from '../../../../_services/data/local-storage/question.service';
 import {Question} from '../../../../_models/question';
@@ -13,7 +13,7 @@ import {FormControl, FormGroup} from '@angular/forms';
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.scss']
 })
-export class QuestionComponent implements OnInit {
+export class QuestionComponent implements OnInit, OnDestroy {
   public gameId: string;
   public roundId: string;
   public questionId: string;
@@ -22,6 +22,8 @@ export class QuestionComponent implements OnInit {
   public players: Array<User>;
   public answeredUsersMap = new Map<string, boolean>();
   public formGroup = new FormGroup({});
+
+  private audio = new Audio();
 
   constructor(
     private activateRout: ActivatedRoute,
@@ -50,13 +52,17 @@ export class QuestionComponent implements OnInit {
   public showQuestion(): void {
     this.state = QuestionState.QUESTION;
     if (this.question.type !== QuestionTypes.SUPER) {
-      const audio = new Audio();
-      audio.src = '/assets/sounds/system/NoAnswer.mp3';
-      setTimeout(() => audio.play(), 60 * 1000);
+      this.audio.src = '/assets/sounds/system/NoAnswer.mp3';
+      setTimeout(() => {
+        if (this.audio) {
+          this.audio.play();
+        }
+      }, 60 * 1000);
     }
   }
 
   public showAnswer(): void {
+    this.audio = null;
     this.question.isAnswered = true;
     this.questionService.updateQuestion(this.gameId, this.roundId, this.question);
     this.state = QuestionState.ANSWER;
@@ -102,9 +108,15 @@ export class QuestionComponent implements OnInit {
     if (this.question.type === QuestionTypes.AUCTION || this.question.type === QuestionTypes.CAT) {
       this.state = QuestionState.TYPE;
     } else if (this.question.isAnswered) {
-      this.state = QuestionState.ANSWER;
+      this.showAnswer();
     } else {
       this.showQuestion();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.audio) {
+      this.audio = null;
     }
   }
 
